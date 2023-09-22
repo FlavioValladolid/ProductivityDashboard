@@ -65,6 +65,25 @@ try:
     # Create the 'After cut-off' column based on the conditions
     df['After cut off'] = np.where(df['company'].notnull(), weekday_condition & time_condition, pd.NA)
 
+
+    # Update the "In Process Type" with type "In Process Crossing" filtering the status "Planning", "Hold", "Backorder" and "Problem Solving" 
+    df.loc[(df["status"] == "Planning") | (df["status"] == "Hold") | (df["status"] == "Backorder") | (df["status"] == "Problem Solving") ,"In Process Type"] = "Stuck"
+
+    # Update the "In Process Type" with type "In Process Pre-Pack MX" filtering the status "Hold", "Replenishment", "On Queue", "Picking", "Picked", "Packing", "Validating" and "Validated" 
+    df.loc[(df["status"] == "Hold") | (df["status"] == "Replenishment") | (df["status"] == "On Queue") | (df["status"] == "Picking") | (df["status"] == "Picked") | (df["status"] == "Packing") | (df["status"] == "Validating") | (df["status"] == "Validated"),"In Process Type"] = "In Process Pre-Pack MX"
+
+    # Update the "In Process Type" with type "In Process Post-Pack MX" the status "On Queue", "Picking", "Picked", "Packing", "Validating" and "Validated" 
+    df.loc[(df["status"] == "Packed") | (df["status"] == "Sorted") | (df["status"] == "Ready to Load") | (df["status"] == "Loaded"),"In Process Type"] = "In Process Post-Pack MX"
+
+    # Update the "In Process Type" with type "In Process Crossing" filtering the status "In Transit" 
+    df.loc[(df["status"] == "In Transit"),"In Process Type"] = "In Process Crossing"
+
+    # Update the "In Process Type" with type "In Process Crossing" filtering the status "On Queue", "Picking", "Picked", "Packing", "Validating" and "Validated" 
+    df.loc[(df["status"] == "Cancelled") | (df["status"] == "Re Stock") | (df["status"] == "Re Stocking") | (df["status"] == "Re Stocked"),"In Process Type"] = "Cancelled"
+
+    # Update the "In Process Type" with type "In Process Crossing" filtering the status "On Queue", "Picking", "Picked", "Packing", "Validating" and "Validated" 
+    df.loc[(df["status"] == "Received in USA"),"In Process Type"] = "In Process US"
+
     # Assuming you have a DataFrame named 'df' with columns 'Company' and 'Received Date'
 
     #weekday_condition_6 = df['Received Date'].dt.weekday.eq(5) & (df['Received Date'].dt.hour + df['Received Date'].dt.minute / 60) > 13
@@ -301,7 +320,31 @@ try:
             "Site": "GENESIS"
         },
         {
+            "company": "OLYMPIA INTERNATIONAL INC",
+            "Site": "ARCA"
+        },
+        {
+            "company": "PORTLAND PRODUCT WERKS LLC",
+            "Site": "GENESIS"
+        },
+        {
             "company": "ACRONYM LLC",
+            "Site": "GENESIS"
+        },
+        {
+            "company": "SATAY INTERNATIONAL",
+            "Site": "GENESIS"
+        },
+        {
+            "company": "PHOENIX FOOTWEAR GROUP INC",
+            "Site": "GENESIS"
+        },
+        {
+            "company": "BELOW 60 LLC",
+            "Site": "GENESIS"
+        },
+        {
+            "company": "CULPRIT UNDERWEAR LLC",
             "Site": "GENESIS"
         }
     ]
