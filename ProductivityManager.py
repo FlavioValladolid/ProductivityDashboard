@@ -346,7 +346,21 @@ try:
         {
             "company": "CULPRIT UNDERWEAR LLC",
             "Site": "GENESIS"
+        },
+        {
+            "company": "WYR INC (Aquarius)",
+            "Site": "GENESIS"
+        },
+        {
+            "company": "PARAVEL INC (USA)",
+            "Site": "ALPHA"
+        },
+        {
+            "company": "WALKINGCO LLC",
+            "Site": "ALPHA"
         }
+        
+        
     ]
 
     site_df = pd.DataFrame(site_json)
